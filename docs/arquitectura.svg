@@ -1,0 +1,81 @@
+<svg viewBox="0 0 1040 760" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Arquitectura del microservicio de inventario: clientes externos (React y microservicio de Pedidos) envian peticiones HTTP a la capa de controladores, que llama a la capa de logica de negocio, que llama a la capa de acceso a datos, la cual persiste en PostgreSQL (Supabase). El microservicio de inventario opcionalmente consulta al microservicio de Catalogo.">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+
+  <style>
+    text { font-family: system-ui, 'Segoe UI', Roboto, sans-serif; fill: currentColor; }
+    .title { font-size: 14px; font-weight: 600; }
+    .label { font-size: 12px; }
+    .small { font-size: 11px; }
+    .mono { font-family: ui-monospace, Consolas, monospace; font-size: 11px; }
+    line, path.edge { stroke: currentColor; fill: none; }
+  </style>
+
+  <!-- Clientes externos -->
+  <rect x="30" y="30" width="230" height="70" rx="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="145" y="58" text-anchor="middle" class="title">React</text>
+  <text x="145" y="78" text-anchor="middle" class="small">Cliente de prueba (frontend)</text>
+
+  <rect x="760" y="30" width="250" height="70" rx="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="885" y="58" text-anchor="middle" class="title">Microservicio de Pedidos</text>
+  <text x="885" y="78" text-anchor="middle" class="small">(sistema externo, no implementado aqui)</text>
+
+  <!-- Arrows into the service -->
+  <path class="edge" d="M145,100 L145,140" marker-end="url(#arrow)"/>
+  <text x="152" y="122" class="small">HTTP/JSON</text>
+
+  <path class="edge" d="M885,100 L885,140 L560,140" marker-end="url(#arrow)"/>
+  <text x="640" y="132" class="small">reserva / valida stock (HTTP)</text>
+
+  <!-- Service boundary -->
+  <rect x="60" y="140" width="500" height="480" rx="10" fill="none" stroke="currentColor" stroke-width="2"/>
+  <text x="80" y="168" class="title">Microservicio de Inventario (Node.js / Express)</text>
+
+  <!-- Layer 1: API/controllers -->
+  <rect x="85" y="185" width="450" height="140" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <text x="100" y="205" class="label" font-weight="600">Capa API / Controladores (routes + controllers)</text>
+  <text x="100" y="225" class="mono">GET    /inventario/{producto_id}</text>
+  <text x="100" y="241" class="mono">PATCH  /inventario/{producto_id}/aumentar</text>
+  <text x="100" y="257" class="mono">PATCH  /inventario/{producto_id}/disminuir</text>
+  <text x="100" y="273" class="mono">GET    /inventario/bajo-stock</text>
+  <text x="100" y="289" class="mono">POST   /inventario</text>
+  <text x="100" y="305" class="mono">DELETE /inventario/{producto_id}</text>
+
+  <path class="edge" d="M310,325 L310,350" marker-end="url(#arrow)"/>
+
+  <!-- Layer 2: business logic -->
+  <rect x="85" y="350" width="450" height="90" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <text x="100" y="370" class="label" font-weight="600">Capa de Logica de Negocio (services)</text>
+  <text x="100" y="390" class="small">Validaciones de reglas: stock suficiente, duplicados,</text>
+  <text x="100" y="406" class="small">existencia del producto, calculo de bajo-stock</text>
+
+  <path class="edge" d="M310,440 L310,465" marker-end="url(#arrow)"/>
+
+  <!-- Layer 3: data access -->
+  <rect x="85" y="465" width="450" height="90" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <text x="100" y="485" class="label" font-weight="600">Capa de Acceso a Datos (repository)</text>
+  <text x="100" y="505" class="small">@supabase/supabase-js: SELECT / INSERT / UPDATE / DELETE</text>
+  <text x="100" y="521" class="small">+ RPC inventario_bajo_stock()</text>
+
+  <path class="edge" d="M310,555 L310,600" marker-end="url(#arrow)"/>
+  <text x="318" y="580" class="small">SQL</text>
+
+  <!-- Database -->
+  <rect x="135" y="600" width="350" height="70" rx="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="310" y="628" text-anchor="middle" class="title">PostgreSQL (Supabase)</text>
+  <text x="310" y="648" text-anchor="middle" class="small">tabla inventario (persistencia propia del servicio)</text>
+
+  <!-- Catalog service (optional future integration) -->
+  <rect x="760" y="350" width="250" height="70" rx="8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="885" y="378" text-anchor="middle" class="title">Microservicio de Catalogo</text>
+  <text x="885" y="398" text-anchor="middle" class="small">(integracion futura, no implementada)</text>
+
+  <path class="edge" d="M560,385 L760,385" marker-end="url(#arrow)" stroke-dasharray="5,4"/>
+  <text x="660" y="377" class="small">consulta (futuro): validar producto_id</text>
+
+  <text x="60" y="700" class="small">Cada microservicio del sistema (Catalogo, Pedidos, Inventario, ...) es independiente, con su propia base de datos y despliegue.</text>
+  <text x="60" y="718" class="small">La comunicacion entre servicios es siempre via API REST desacoplada (HTTP/JSON), nunca acceso directo a la base de datos de otro servicio.</text>
+</svg>
