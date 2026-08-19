@@ -1,0 +1,23 @@
+services:
+  - name: microservicio-inventario-backend
+    type: web
+    runtime: node
+    rootDir: backend
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: SUPABASE_URL
+        value: https://wzrumzfdekbzaewusxzl.supabase.co
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+
+  - name: microservicio-inventario-frontend
+    type: web
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://microservicio-inventario-backend.onrender.com
