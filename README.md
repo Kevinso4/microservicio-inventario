@@ -216,6 +216,21 @@ cd backend
 npm test
 ```
 
+## Evidencia de funcionamiento
+
+Capturas del cliente React consumiendo la API real (conectada a Supabase):
+
+| Endpoint | Captura |
+|---|---|
+| Pantalla inicial | ![Inicio](docs/evidencia/01-inicio.png) |
+| `GET /inventario/{producto_id}` → 200 | ![GET inventario](docs/evidencia/02-get-inventario.png) |
+| `PATCH /inventario/{producto_id}/aumentar` → 200 | ![PATCH aumentar](docs/evidencia/03-patch-aumentar.png) |
+| `PATCH /inventario/{producto_id}/disminuir` → 409 (stock insuficiente) | ![PATCH disminuir error](docs/evidencia/04-patch-disminuir-error-409.png) |
+| `POST /inventario` → 201 | ![POST crear](docs/evidencia/05-post-crear.png) |
+| `GET /inventario/bajo-stock` → 200 | ![GET bajo-stock](docs/evidencia/06-get-bajo-stock.png) |
+
+`DELETE /inventario/{producto_id}` se validó por línea de comandos (`curl -X DELETE`), respondiendo `204 No Content`.
+
 ## Integración con el resto del sistema
 
 - **Consumido por**: el microservicio de Pedidos (para reservar/validar stock antes de confirmar un pedido) y el microservicio de Catálogo (para mostrar disponibilidad).
