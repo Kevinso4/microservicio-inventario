@@ -1,5 +1,11 @@
 # Microservicio de Inventario
 
+🔗 **Demo en vivo:**
+- Frontend (interfaz de prueba): https://microservicio-inventario-frontend.onrender.com
+- Backend (API REST): https://microservicio-inventario-backend.onrender.com
+
+> Desplegado en Render con un plan gratuito: el backend puede tardar ~30-50s en responder la primera petición si estuvo inactivo (cold start).
+
 Microservicio independiente responsable de controlar las **existencias físicas** de cada producto (cantidad disponible, cantidad reservada y umbral mínimo de stock), separado del catálogo de productos. Expone una API REST propia y persiste sus datos en su propia base de datos PostgreSQL (Supabase).
 
 ## Descripción del servicio
