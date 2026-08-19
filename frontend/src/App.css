@@ -56,6 +56,20 @@ header p {
   margin-bottom: 0.75rem;
 }
 
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.campo span {
+  font-size: 0.7rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: #94a3b8;
+}
+
 input {
   background: #0f172a;
   border: 1px solid #334155;

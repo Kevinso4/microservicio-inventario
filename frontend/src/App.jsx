@@ -91,29 +91,38 @@ function CrearProducto() {
     <section className="card">
       <h2>POST /inventario</h2>
       <div className="grid">
-        <input
-          placeholder="producto_id"
-          value={form.producto_id}
-          onChange={(e) => update('producto_id', e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="cantidad_disponible"
-          value={form.cantidad_disponible}
-          onChange={(e) => update('cantidad_disponible', Number(e.target.value))}
-        />
-        <input
-          type="number"
-          placeholder="cantidad_reservada"
-          value={form.cantidad_reservada}
-          onChange={(e) => update('cantidad_reservada', Number(e.target.value))}
-        />
-        <input
-          type="number"
-          placeholder="umbral_minimo"
-          value={form.umbral_minimo}
-          onChange={(e) => update('umbral_minimo', Number(e.target.value))}
-        />
+        <label className="campo">
+          <span>producto_id</span>
+          <input
+            placeholder="ej. PROD-050"
+            value={form.producto_id}
+            onChange={(e) => update('producto_id', e.target.value)}
+          />
+        </label>
+        <label className="campo">
+          <span>cantidad_disponible</span>
+          <input
+            type="number"
+            value={form.cantidad_disponible}
+            onChange={(e) => update('cantidad_disponible', Number(e.target.value))}
+          />
+        </label>
+        <label className="campo">
+          <span>cantidad_reservada</span>
+          <input
+            type="number"
+            value={form.cantidad_reservada}
+            onChange={(e) => update('cantidad_reservada', Number(e.target.value))}
+          />
+        </label>
+        <label className="campo">
+          <span>umbral_minimo</span>
+          <input
+            type="number"
+            value={form.umbral_minimo}
+            onChange={(e) => update('umbral_minimo', Number(e.target.value))}
+          />
+        </label>
       </div>
       <div className="fila">
         <button disabled={cargando} onClick={() => ejecutar(() => crearInventario(form))}>
@@ -134,13 +143,18 @@ function AjustarCantidad() {
     <section className="card">
       <h2>PATCH /inventario/{'{producto_id}'}/aumentar | disminuir</h2>
       <div className="fila">
-        <input value={productoId} onChange={(e) => setProductoId(e.target.value)} placeholder="producto_id" />
-        <input
-          type="number"
-          value={cantidad}
-          onChange={(e) => setCantidad(Number(e.target.value))}
-          placeholder="cantidad"
-        />
+        <label className="campo">
+          <span>producto_id</span>
+          <input value={productoId} onChange={(e) => setProductoId(e.target.value)} placeholder="ej. PROD-001" />
+        </label>
+        <label className="campo">
+          <span>cantidad</span>
+          <input
+            type="number"
+            value={cantidad}
+            onChange={(e) => setCantidad(Number(e.target.value))}
+          />
+        </label>
       </div>
       <div className="fila">
         <button disabled={cargando} onClick={() => ejecutar(() => aumentarInventario(productoId, cantidad))}>
